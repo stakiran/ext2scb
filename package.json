@@ -1,0 +1,107 @@
+{
+	"name": "vscode-scb-commands",
+	"displayName": "vscode-scb commands",
+	"description": "vscode-scb commands for .scb files.",
+	"publisher": "stakiran",
+	"repository": "https://github.com/stakiran/vscode-scb",
+	"version": "0.2.0",
+	"license": "MIT",
+	"engines": {
+		"vscode": "^1.51.0"
+	},
+	"main": "./out/extension.js",
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onLanguages:vscode-scb",
+		"onLanguages:plaintext",
+		"onCommand:vscodescb.menu.show",
+		"onCommand:vscodescb.neworopen",
+		"onCommand:vscodescb.copy.linkeename",
+		"onCommand:vscodescb.jump.toplevelline.prev",
+		"onCommand:vscodescb.jump.toplevelline.next"
+	],
+	"contributes": {
+		"commands": [
+			{
+				"command": "vscodescb.neworopen",
+				"title": "New or Open link",
+				"category": "vscodescb"
+			}
+		],
+		"menus": {
+			"commandPalette": [
+				{
+					"command": "vscodescb.neworopen",
+					"when": "resourceExtname != .scb"
+				}
+			],
+			"editor/context": [
+				{
+					"command": "vscodescb.neworopen",
+					"group": "navigation@20",
+					"when": "resourceExtname != .scb"
+				}
+			]
+		},
+		"keybindings": [
+			{
+				"command": "vscodescb.menu.show",
+				"key": "alt+m",
+				"mac": "ctrl+m",
+				"when": "resourceExtname == .scb"
+			},
+			{
+				"command": "vscodescb.neworopen",
+				"key": "ctrl+shift+1",
+				"mac": "ctrl+shift+1",
+				"when": "resourceExtname == .scb"
+			},
+			{
+				"command": "vscodescb.copy.linkeename",
+				"key": "alt+c",
+				"mac": "ctrl+c",
+				"when": "resourceExtname == .scb"
+			},
+			{
+				"command": "vscodescb.jump.toplevelline.prev",
+				"key": "alt+up",
+				"mac": "ctrl+up",
+				"when": "resourceExtname == .scb"
+			},
+			{
+				"command": "vscodescb.jump.toplevelline.next",
+				"key": "alt+down",
+				"mac": "ctrl+down",
+				"when": "resourceExtname == .scb"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile",
+		"lint": "eslint --ext .ts ./src",
+		"pretty": "prettier ./src/*.ts --write"
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.3",
+		"@types/mocha": "^5.2.6",
+		"@types/node": "^10.17.48",
+		"@types/vscode": "^1.51.0",
+		"@typescript-eslint/eslint-plugin": "^4.9.1",
+		"@typescript-eslint/parser": "^4.9.1",
+		"eslint": "^7.15.0",
+		"glob": "^7.1.6",
+		"mocha": "^6.2.3",
+		"prettier": "^2.2.1",
+		"typescript": "^3.9.7",
+		"vscode-test": "^1.4.1"
+	},
+	"dependencies": {
+		"child_process": "^1.0.2",
+		"moment": "^2.29.1"
+	}
+}
