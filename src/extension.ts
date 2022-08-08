@@ -2,8 +2,6 @@ import * as vscode from 'vscode';
 
 import * as path from 'path';
 
-import * as util from './util';
-
 const SELF_EXTENSION_ID = 'stakiran.vscodescb-openscb';
 
 function abort(message: string) {
@@ -41,56 +39,9 @@ export function getEditor() {
 	return editor;
 }
 
-class CursorPositioner {
-	static current(): vscode.Position {
-		const editor = getEditor();
-		const curPos = editor.selection.active;
-		return curPos;
-	}
-
-	static currentSelection(): vscode.Selection {
-		const editor = getEditor();
-		return editor.selection;
-	}
-
-	static rangeBetweenCurrentSelection(): vscode.Range {
-		const curSel = this.currentSelection();
-		const range = new vscode.Range(curSel.start, curSel.end);
-		return range;
-	}
-}
-
-function constructTargetScbFullpath(maybeOpeneeFilename: string) {
-	const openeeFilename = util.fixInvalidFilename(maybeOpeneeFilename);
-	const fullpathOfCurrentScbFile = getFullpathOfActiveTextEditor();
-
-	const directoryOfCurrentScbFile = path.dirname(fullpathOfCurrentScbFile);
-
-	const fullpath_without_ext = path.join(
-		directoryOfCurrentScbFile,
-		openeeFilename
-	);
-	const fullpath = `${fullpath_without_ext}.scb`;
-	return fullpath;
-}
-
-async function smartopenIfDoesnotExists(filepath: string) {
-	const smartopen = vscode.Uri.file(filepath).with({ scheme: 'untitled' });
-	const promise = vscode.workspace.openTextDocument(smartopen);
-	return promise.then(vscode.window.showTextDocument, () => {
-		// 既存ファイルだった場合はこっちに来る（失敗扱いになる）
-		return false;
-	});
-}
-
-async function openExistingFile(filepath: string) {
-	const uri = vscode.Uri.file(filepath);
-	const textdocument = await vscode.workspace.openTextDocument(uri);
-	await vscode.window.showTextDocument(textdocument);
-}
-
 export async function newOrOpen() {
-	console.log('yeah!');
+	const filename = getFilenameOfActiveTextEditor();
+	console.log(filename);
 	return Promise.resolve(true);
 }
 

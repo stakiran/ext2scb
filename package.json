@@ -21,7 +21,7 @@
 			{
 				"command": "openscb.neworopen",
 				"title": "New or Open .scb file from the current",
-				"category": "vscodescb"
+				"category": "openscb"
 			}
 		],
 		"menus": {
