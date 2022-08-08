@@ -1,10 +1,10 @@
 {
-	"name": "vscode-scb-commands",
-	"displayName": "vscode-scb commands",
-	"description": "vscode-scb commands for .scb files.",
+	"name": "open-scb",
+	"displayName": "open scb",
+	"description": "open xxxx.scb from xxxx.ext.",
 	"publisher": "stakiran",
-	"repository": "https://github.com/stakiran/vscode-scb",
-	"version": "0.2.0",
+	"repository": "https://github.com/stakiran/openscb",
+	"version": "0.0.1",
 	"license": "MIT",
 	"engines": {
 		"vscode": "^1.51.0"
@@ -47,33 +47,9 @@
 		},
 		"keybindings": [
 			{
-				"command": "vscodescb.menu.show",
-				"key": "alt+m",
-				"mac": "ctrl+m",
-				"when": "resourceExtname == .scb"
-			},
-			{
 				"command": "vscodescb.neworopen",
 				"key": "ctrl+shift+1",
 				"mac": "ctrl+shift+1",
-				"when": "resourceExtname == .scb"
-			},
-			{
-				"command": "vscodescb.copy.linkeename",
-				"key": "alt+c",
-				"mac": "ctrl+c",
-				"when": "resourceExtname == .scb"
-			},
-			{
-				"command": "vscodescb.jump.toplevelline.prev",
-				"key": "alt+up",
-				"mac": "ctrl+up",
-				"when": "resourceExtname == .scb"
-			},
-			{
-				"command": "vscodescb.jump.toplevelline.next",
-				"key": "alt+down",
-				"mac": "ctrl+down",
 				"when": "resourceExtname == .scb"
 			}
 		]
