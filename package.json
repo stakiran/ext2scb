@@ -42,8 +42,8 @@
 		"keybindings": [
 			{
 				"command": "openscb.neworopen",
-				"key": "ctrl+shift+1",
-				"mac": "ctrl+shift+1",
+				"key": "shift+enter",
+				"mac": "shift+enter",
 				"when": "resourceExtname != .scb"
 			}
 		]
