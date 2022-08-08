@@ -14,32 +14,26 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onLanguages:vscode-scb",
-		"onLanguages:plaintext",
-		"onCommand:vscodescb.menu.show",
-		"onCommand:vscodescb.neworopen",
-		"onCommand:vscodescb.copy.linkeename",
-		"onCommand:vscodescb.jump.toplevelline.prev",
-		"onCommand:vscodescb.jump.toplevelline.next"
+		"onCommand:openscb.neworopen"
 	],
 	"contributes": {
 		"commands": [
 			{
-				"command": "vscodescb.neworopen",
-				"title": "New or Open link",
+				"command": "openscb.neworopen",
+				"title": "New or Open .scb file from the current",
 				"category": "vscodescb"
 			}
 		],
 		"menus": {
 			"commandPalette": [
 				{
-					"command": "vscodescb.neworopen",
+					"command": "openscb.neworopen",
 					"when": "resourceExtname != .scb"
 				}
 			],
 			"editor/context": [
 				{
-					"command": "vscodescb.neworopen",
+					"command": "openscb.neworopen",
 					"group": "navigation@20",
 					"when": "resourceExtname != .scb"
 				}
@@ -47,7 +41,7 @@
 		},
 		"keybindings": [
 			{
-				"command": "vscodescb.neworopen",
+				"command": "openscb.neworopen",
 				"key": "ctrl+shift+1",
 				"mac": "ctrl+shift+1",
 				"when": "resourceExtname == .scb"
