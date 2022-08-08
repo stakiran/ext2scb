@@ -102,7 +102,5 @@ export function activate(context: vscode.ExtensionContext): void {
 		}
 	);
 
-	context.subscriptions.push(
-		_new_or_open
-	);
+	context.subscriptions.push(_new_or_open);
 }

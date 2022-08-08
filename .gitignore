@@ -4,3 +4,6 @@ out/
 *.scb
 *.log
 *.vsix
+
+# For manual test
+*sample*
