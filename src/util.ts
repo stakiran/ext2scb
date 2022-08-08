@@ -1,6 +1,3 @@
-import * as moment from 'moment';
-moment.locale('ja');
-
 function fixInvalidFilename(filename: string) {
 	let newFilename = filename;
 	const after = '_';
