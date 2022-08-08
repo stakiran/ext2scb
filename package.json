@@ -44,7 +44,7 @@
 				"command": "openscb.neworopen",
 				"key": "ctrl+shift+1",
 				"mac": "ctrl+shift+1",
-				"when": "resourceExtname == .scb"
+				"when": "resourceExtname != .scb"
 			}
 		]
 	},
