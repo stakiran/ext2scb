@@ -62,6 +62,7 @@ async function openExistingFile(filepath: string) {
 
 export async function newOrOpen() {
 	const TARGET_FOLDERNAME = 'scb';
+	const TARGET_EXT = '.scb';
 
 	const workspaceRootOrNothing = getWorkspaceRootDirectory();
 	const doesNotOpenWorkspace = !workspaceRootOrNothing;
@@ -74,7 +75,8 @@ export async function newOrOpen() {
 	console.log(targetDirectory);
 
 	const currentFileName = getFilenameOfActiveTextEditor();
-	const targetFilename = util.fixInvalidFilename(currentFileName);
+	const targetBasename = util.fixInvalidFilename(currentFileName);
+	const targetFilename = `${targetBasename}${TARGET_EXT}`
 	console.log(targetFilename);
 
 	const doesNotExistTargetDirectory = !fs.existsSync(targetDirectory);
