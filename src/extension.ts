@@ -29,6 +29,18 @@ function getFilenameOfActiveTextEditor() {
 	const filename = path.basename(fullpath);
 	return filename;
 }
+function getWorkspaceRootDirectory() {
+	const directoriesOrUndefined = vscode.workspace.workspaceFolders;
+	if(directoriesOrUndefined == undefined){
+		const NOTFOUND = "";
+		return NOTFOUND;
+	}
+	// multiple workspace はいったん想定しない前提でいく。
+	// ので、1番目を常に選んじゃう。
+	const directory = directoriesOrUndefined[0];
+	const directoryByString = directory.uri.fsPath;
+	return directoryByString
+}
 
 export function getEditor() {
 	const editor = vscode.window.activeTextEditor;
@@ -40,8 +52,8 @@ export function getEditor() {
 }
 
 export async function newOrOpen() {
-	const filename = getFilenameOfActiveTextEditor();
-	console.log(filename);
+	console.log(getFilenameOfActiveTextEditor());
+	console.log(getWorkspaceRootDirectory());
 	return Promise.resolve(true);
 }
 
