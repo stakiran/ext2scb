@@ -2,8 +2,6 @@ import * as vscode from 'vscode';
 
 import * as path from 'path';
 
-const SELF_EXTENSION_ID = 'stakiran.vscodescb-openscb';
-
 function abort(message: string) {
 	console.log(message);
 	// Object is possibly 'undefined' を防げないので呼び出し元で.
