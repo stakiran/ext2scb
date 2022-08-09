@@ -10,15 +10,6 @@ function abort(message: string) {
 	//throw new Error(`Error: ${message}`);
 }
 
-export function getSelfDirectory() {
-	const selfExtension = vscode.extensions.getExtension(SELF_EXTENSION_ID);
-	if (selfExtension === undefined) {
-		abort('No extension found in getSelfDirectory()');
-		throw new Error();
-	}
-	const selfDir = selfExtension.extensionPath;
-	return selfDir;
-}
 function getFullpathOfActiveTextEditor() {
 	const editor = getEditor();
 	const fullpath = editor.document.uri.fsPath;
