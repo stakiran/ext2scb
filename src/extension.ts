@@ -1,6 +1,9 @@
 import * as vscode from 'vscode';
 
 import * as path from 'path';
+import * as fs from 'fs';
+
+import * as util from './util';
 
 function abort(message: string) {
 	console.log(message);
@@ -9,6 +12,15 @@ function abort(message: string) {
 }
 function msgdialog(message: string) {
 	vscode.window.showInformationMessage(message);
+}
+
+export function getEditor() {
+	const editor = vscode.window.activeTextEditor;
+	if (editor == null) {
+		abort('activeTextEditor is null currently.');
+		throw new Error();
+	}
+	return editor;
 }
 
 function getFullpathOfActiveTextEditor() {
@@ -34,13 +46,18 @@ function getWorkspaceRootDirectory() {
 	return directoryByString;
 }
 
-export function getEditor() {
-	const editor = vscode.window.activeTextEditor;
-	if (editor == null) {
-		abort('activeTextEditor is null currently.');
-		throw new Error();
-	}
-	return editor;
+async function smartopenIfDoesnotExists(filepath: string) {
+	const smartopen = vscode.Uri.file(filepath).with({ scheme: 'untitled' });
+	const promise = vscode.workspace.openTextDocument(smartopen);
+	return promise.then(vscode.window.showTextDocument, () => {
+		// 既存ファイルだった場合はこっちに来る（失敗扱いになる）
+		return false;
+	});
+}
+async function openExistingFile(filepath: string) {
+	const uri = vscode.Uri.file(filepath);
+	const textdocument = await vscode.workspace.openTextDocument(uri);
+	await vscode.window.showTextDocument(textdocument);
 }
 
 export async function newOrOpen() {
@@ -53,12 +70,24 @@ export async function newOrOpen() {
 		return Promise.resolve(true);
 	}
 	const workspaceRootDir = workspaceRootOrNothing;
-	const target_directory = path.join(workspaceRootDir, TARGET_FOLDERNAME);
-	console.log(target_directory);
+	const targetDirectory = path.join(workspaceRootDir, TARGET_FOLDERNAME);
+	console.log(targetDirectory);
 
 	const currentFileName = getFilenameOfActiveTextEditor();
-	console.log(currentFileName);
+	const targetFilename = util.fixInvalidFilename(currentFileName);
+	console.log(targetFilename);
 
+	const doesNotExistTargetDirectory = !fs.existsSync(targetDirectory);
+	if (doesNotExistTargetDirectory) {
+		fs.mkdirSync(targetDirectory);
+	}
+
+	const targetFullpath = path.join(targetDirectory, targetFilename);
+	const okSmartOpen = await smartopenIfDoesnotExists(targetFullpath);
+	if (okSmartOpen) {
+		return Promise.resolve(true);
+	}
+	await openExistingFile(targetFullpath);
 	return Promise.resolve(true);
 }
 
