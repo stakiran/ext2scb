@@ -7,6 +7,9 @@ function abort(message: string) {
 	// Object is possibly 'undefined' を防げないので呼び出し元で.
 	//throw new Error(`Error: ${message}`);
 }
+function msgdialog(message: string){
+	vscode.window.showInformationMessage(message);
+}
 
 function getFullpathOfActiveTextEditor() {
 	const editor = getEditor();
@@ -41,8 +44,18 @@ export function getEditor() {
 }
 
 export async function newOrOpen() {
-	console.log(getFilenameOfActiveTextEditor());
-	console.log(getWorkspaceRootDirectory());
+	const TARGET_FOLDERNAME = 'scb';
+
+	const workspaceRootOrNothing = getWorkspaceRootDirectory();
+	const doesNotOpenWorkspace = !workspaceRootOrNothing
+	if(doesNotOpenWorkspace){
+		msgdialog('No workspace. Please open a workspace first.')
+		return Promise.resolve(true);
+	}
+	const workspaceRootDir = workspaceRootOrNothing
+	const target_directory = path.join(workspaceRootDir, TARGET_FOLDERNAME)
+	console.log(target_directory)
+
 	return Promise.resolve(true);
 }
 
