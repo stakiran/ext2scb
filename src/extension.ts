@@ -7,7 +7,7 @@ function abort(message: string) {
 	// Object is possibly 'undefined' を防げないので呼び出し元で.
 	//throw new Error(`Error: ${message}`);
 }
-function msgdialog(message: string){
+function msgdialog(message: string) {
 	vscode.window.showInformationMessage(message);
 }
 
@@ -23,15 +23,15 @@ function getFilenameOfActiveTextEditor() {
 }
 function getWorkspaceRootDirectory() {
 	const directoriesOrUndefined = vscode.workspace.workspaceFolders;
-	if(directoriesOrUndefined == undefined){
-		const NOTFOUND = "";
+	if (directoriesOrUndefined == undefined) {
+		const NOTFOUND = '';
 		return NOTFOUND;
 	}
 	// multiple workspace はいったん想定しない前提でいく。
 	// ので、1番目を常に選んじゃう。
 	const directory = directoriesOrUndefined[0];
 	const directoryByString = directory.uri.fsPath;
-	return directoryByString
+	return directoryByString;
 }
 
 export function getEditor() {
@@ -47,14 +47,17 @@ export async function newOrOpen() {
 	const TARGET_FOLDERNAME = 'scb';
 
 	const workspaceRootOrNothing = getWorkspaceRootDirectory();
-	const doesNotOpenWorkspace = !workspaceRootOrNothing
-	if(doesNotOpenWorkspace){
-		msgdialog('No workspace. Please open a workspace first.')
+	const doesNotOpenWorkspace = !workspaceRootOrNothing;
+	if (doesNotOpenWorkspace) {
+		msgdialog('No workspace. Please open a workspace first.');
 		return Promise.resolve(true);
 	}
-	const workspaceRootDir = workspaceRootOrNothing
-	const target_directory = path.join(workspaceRootDir, TARGET_FOLDERNAME)
-	console.log(target_directory)
+	const workspaceRootDir = workspaceRootOrNothing;
+	const target_directory = path.join(workspaceRootDir, TARGET_FOLDERNAME);
+	console.log(target_directory);
+
+	const currentFileName = getFilenameOfActiveTextEditor();
+	console.log(currentFileName);
 
 	return Promise.resolve(true);
 }
